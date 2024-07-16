@@ -36,4 +36,6 @@ public class NotificationController {
         service.cancelNotification(notificationId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+
 }

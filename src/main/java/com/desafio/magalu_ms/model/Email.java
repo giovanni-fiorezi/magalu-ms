@@ -10,14 +10,27 @@ import java.time.LocalDateTime;
 public class Email {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String emailFrom;
-    private String emailTo;
+    private String email;
     private String subject;
     private String text;
-    private LocalDateTime sendDateEmail;
+    private LocalDateTime dateTime;
     private StatusEmail statusEMail;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "notification_id")
+    private Notification notification;
+
+    public Email() {
+    }
+
+    public Email(String email, String subject, String text, LocalDateTime dateTime, StatusEmail statusEMail) {
+        this.email = email;
+        this.subject = subject;
+        this.text = text;
+        this.dateTime = dateTime;
+        this.statusEMail = statusEMail;
+    }
 
     public Long getId() {
         return id;
@@ -27,20 +40,12 @@ public class Email {
         this.id = id;
     }
 
-    public String getEmailFrom() {
-        return emailFrom;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailFrom(String emailFrom) {
-        this.emailFrom = emailFrom;
-    }
-
-    public String getEmailTo() {
-        return emailTo;
-    }
-
-    public void setEmailTo(String emailTo) {
-        this.emailTo = emailTo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSubject() {
@@ -59,12 +64,12 @@ public class Email {
         this.text = text;
     }
 
-    public LocalDateTime getSendDateEmail() {
-        return sendDateEmail;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setSendDateEmail(LocalDateTime sendDateEmail) {
-        this.sendDateEmail = sendDateEmail;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public StatusEmail getStatusEMail() {
@@ -73,5 +78,13 @@ public class Email {
 
     public void setStatusEMail(StatusEmail statusEMail) {
         this.statusEMail = statusEMail;
+    }
+
+    public Notification getNotification() {
+        return notification;
+    }
+
+    public void setNotification(Notification notification) {
+        this.notification = notification;
     }
 }

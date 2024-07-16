@@ -15,9 +15,11 @@ import java.util.function.Consumer;
 public class NotificationService {
 
     private final NotificationRepository notificationRepository;
+    private final EmailService emailService;
 
-    public NotificationService(NotificationRepository notificationRepository) {
+    public NotificationService(NotificationRepository notificationRepository, EmailService emailService) {
         this.notificationRepository = notificationRepository;
+        this.emailService = emailService;
     }
 
     public void scheduledNotification(NotificationDto dto) {
@@ -52,9 +54,9 @@ public class NotificationService {
     }
 
     private Consumer<Notification> sendNotification() {
-        return n -> {
-            //TODO - Realizar o envio da notificação
 
+        return n -> {
+            emailService.sendEmail();
             n.setStatus(Status.Values.SUCCESS.toStatus());
             notificationRepository.save(n);
         };
